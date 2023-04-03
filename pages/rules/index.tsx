@@ -1,3 +1,4 @@
+import RulesCard from "@/components/rules/RulesCard";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -12,5 +13,9 @@ const StyledWrapper = styled.div`
 `;
 
 export default function RulesPage() {
-  return <StyledWrapper></StyledWrapper>;
+  return (
+    <StyledWrapper>
+      <RulesCard />
+    </StyledWrapper>
+  );
 }

@@ -1,6 +1,12 @@
 import Game from "@/components/game/Game";
+import GameMenu from "@/components/game/GameMenu";
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const slideIn = keyframes`
+    from{transform: translateY(200px);}
+    to{transform: translateY(0);}
+`;
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -10,8 +16,9 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: 48px;
+  padding: 0 48px;
   background-color: ${({ theme }) => theme.colors.purple};
+  overflow: hidden;
 `;
 
 const BottomBanner = styled.div`
@@ -22,16 +29,23 @@ const BottomBanner = styled.div`
   width: 100%;
   border-radius: 60px 60px 0px 0px;
   background-color: ${({ theme }) => theme.colors.darkPurple};
+  animation: ${slideIn} 0.3s ease-in-out;
 `;
 
 export default function GamePage() {
   const [points, setPoints] = useState();
   const [winner, setWinner] = useState();
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  function toggleMenu() {
+    setMenuIsOpen((prevState) => !prevState);
+  }
 
   return (
     <StyledWrapper>
-      <Game />
+      <Game toggleMenu={toggleMenu} />
       <BottomBanner></BottomBanner>
+      {menuIsOpen && <GameMenu toggleMenu={toggleMenu} />}
     </StyledWrapper>
   );
 }

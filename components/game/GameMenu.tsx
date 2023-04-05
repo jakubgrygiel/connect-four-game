@@ -38,7 +38,7 @@ const Modal = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 80px;
+  gap: 44px;
   width: 480px;
   padding: 70px 40px 60px 40px;
   background-color: ${({ theme }) => theme.colors.purple};
@@ -85,6 +85,10 @@ const QuitBtn = styled(Button)`
   background-color: ${({ theme }) => theme.colors.red};
 `;
 
+const Pause = styled.h3`
+  font-size: 56px;
+`;
+
 interface IGameMenuProps {
   toggleMenu: () => void;
 }
@@ -115,6 +119,7 @@ export default function GameMenu({ toggleMenu }: IGameMenuProps) {
     <StyledWrapper>
       <Backdrop ref={backdropRef} onClick={handleClickClose} />
       <Modal ref={modalRef}>
+        <Pause>PAUSE</Pause>
         <BtnsWrapper>
           <Button onClick={handleClickClose}>CONTINUE GAME</Button>
           <Button onClick={handleClickRestart}>RESTART</Button>

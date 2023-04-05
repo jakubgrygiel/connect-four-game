@@ -86,6 +86,7 @@ const QuitBtn = styled(Button)`
 `;
 
 const Pause = styled.h3`
+  color: ${({ theme }) => theme.colors.white};
   font-size: 56px;
 `;
 

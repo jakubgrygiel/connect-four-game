@@ -57,6 +57,8 @@ export default function Board() {
     [1, 1, 1, 1, 2, 2, 2],
   ];
 
+  console.log(getWinner(testBoard, 4));
+
   return (
     <StyledWrapper>
       <BottomLayer></BottomLayer>

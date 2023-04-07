@@ -35,7 +35,7 @@ const BtnsWrapper = styled.div`
   }
 `;
 
-const Button = styled.button`
+const Button: any = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: flex-start;

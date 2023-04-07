@@ -1,13 +1,9 @@
-function getMatch(arr: number[], coord: number[][]) {
+function getMatch(arr: number[]) {
   const match = arr.every((el) => el === arr[0]);
   if (match) {
-    return { match: true, coord: coord, winner: arr[0] };
+    return true;
   }
-  return {
-    match: false,
-    coord: [],
-    winner: 0,
-  };
+  return false;
 }
 
 function checkRight(board: number[][], winningNum: number, position: number[]) {
@@ -17,7 +13,9 @@ function checkRight(board: number[][], winningNum: number, position: number[]) {
     arr.push(board[position[0]][position[1] + j]);
     coord.push([position[0], position[1] + j]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function checkLeft(board: number[][], winningNum: number, position: number[]) {
@@ -27,7 +25,9 @@ function checkLeft(board: number[][], winningNum: number, position: number[]) {
     arr.push(board[position[0]][position[1] - j]);
     coord.push([position[0], position[1] - j]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function checkTop(board: number[][], winningNum: number, position: number[]) {
@@ -37,7 +37,9 @@ function checkTop(board: number[][], winningNum: number, position: number[]) {
     arr.push(board[position[0] - i][position[1]]);
     coord.push([position[0] - i, position[1]]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function checkBottom(
@@ -51,7 +53,9 @@ function checkBottom(
     arr.push(board[position[0] + i][position[1]]);
     coord.push([position[0] + i, position[1]]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function checkTopRight(
@@ -65,7 +69,9 @@ function checkTopRight(
     arr.push(board[position[0] - i][position[1] + i]);
     coord.push([position[0] - i, position[1] + i]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function checkBottomRight(
@@ -79,7 +85,9 @@ function checkBottomRight(
     arr.push(board[position[0] + i][position[1] + i]);
     coord.push([position[0] + i, position[1] + i]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function checkBottomLeft(
@@ -93,7 +101,9 @@ function checkBottomLeft(
     arr.push(board[position[0] + i][position[1] - i]);
     coord.push([position[0] + i, position[1] - i]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function checkTopLeft(
@@ -107,7 +117,9 @@ function checkTopLeft(
     arr.push(board[position[0] - i][position[1] - i]);
     coord.push([position[0] - i, position[1] - i]);
   }
-  return getMatch(arr, coord);
+  const match = getMatch(arr);
+  if (match) return { match: true, coord: coord, winner: arr[0] };
+  return { match: false, coord: [], winner: 0 };
 }
 
 function getConditions(

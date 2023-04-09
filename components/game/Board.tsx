@@ -1,6 +1,9 @@
 import getWinner from "@/utils/gameRules";
 import { useState } from "react";
 import styled from "styled-components";
+import Pointer from "./Pointer";
+import HoverLayer from "./HoverLayer";
+import BoardLayer from "./BoardLayers";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -38,32 +41,22 @@ const TopLayer = styled.div`
   background-repeat: no-repeat;
 `;
 
+interface IPosition {
+  position: number;
+}
+
 export default function Board() {
-  const [board, setBoard] = useState<number[][]>([
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-  ]);
+  const [hoverColumn, setHoverColumn] = useState<number>(0);
 
-  let testBoard: number[][] = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 1, 2, 0, 0, 0],
-    [0, 1, 2, 2, 0, 0, 0],
-    [1, 1, 1, 1, 2, 2, 2],
-  ];
-
-  console.log(getWinner(testBoard, 4));
+  function changeHoveredColumn(col: number) {
+    setHoverColumn(col);
+  }
 
   return (
     <StyledWrapper>
-      <BottomLayer></BottomLayer>
-      <MiddleLayer></MiddleLayer>
-      <TopLayer></TopLayer>
+      <Pointer position={hoverColumn} />
+      <BoardLayer />
+      <HoverLayer changeHoveredColumn={changeHoveredColumn} />
     </StyledWrapper>
   );
 }

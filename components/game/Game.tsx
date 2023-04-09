@@ -60,6 +60,7 @@ const Btn = styled.button`
 `;
 
 const BoardWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

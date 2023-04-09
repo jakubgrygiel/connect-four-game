@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TopBoardLayer from "./TopBoardLayer";
 
@@ -27,12 +27,16 @@ const TopLayer = styled.div`
   background-repeat: no-repeat;
 `;
 
-export default function BoardLayer() {
+interface IBoardLayerProps {
+  counterPosition: number | undefined;
+}
+
+export default function BoardLayer({ counterPosition }: IBoardLayerProps) {
   return (
     <>
       <BottomLayer></BottomLayer>
       <MiddleLayer></MiddleLayer>
-      <TopBoardLayer />
+      <TopBoardLayer counterPosition={counterPosition} />
     </>
   );
 }

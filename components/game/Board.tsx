@@ -1,5 +1,5 @@
 import getWinner from "@/utils/gameRules";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Pointer from "./Pointer";
 import HoverLayer from "./HoverLayer";
@@ -47,16 +47,29 @@ interface IPosition {
 
 export default function Board() {
   const [hoverColumn, setHoverColumn] = useState<number>(0);
+  const [counterPosition, setCounterPosition] = useState<number | undefined>();
+
+  useEffect(() => {
+    setCounterPosition(undefined);
+  }, [counterPosition]);
 
   function changeHoveredColumn(col: number) {
     setHoverColumn(col);
   }
 
+  function chooseCounterPosition(col: number) {
+    console.log("board:", col);
+    setCounterPosition(col);
+  }
+
   return (
     <StyledWrapper>
       <Pointer position={hoverColumn} />
-      <BoardLayer />
-      <HoverLayer changeHoveredColumn={changeHoveredColumn} />
+      <BoardLayer counterPosition={counterPosition} />
+      <HoverLayer
+        changeHoveredColumn={changeHoveredColumn}
+        chooseCounterPosition={chooseCounterPosition}
+      />
     </StyledWrapper>
   );
 }

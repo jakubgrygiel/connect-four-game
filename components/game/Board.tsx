@@ -68,7 +68,7 @@ export default function Board({ changeCurrentPlayer, player }: IBoardProps) {
 
   return (
     <StyledWrapper>
-      <Pointer position={hoverColumn} />
+      <Pointer position={hoverColumn} player={player} />
       <BoardLayer
         counterPosition={counterPosition}
         player={player}

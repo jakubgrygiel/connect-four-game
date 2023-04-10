@@ -22,12 +22,18 @@ export default function TopBoardLayer({
   changeCurrentPlayer,
 }: ITopBoardLayerProps) {
   const [board, setBoard] = useState<number[][]>([
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
   useEffect(() => {
@@ -43,22 +49,23 @@ export default function TopBoardLayer({
   function addNewCounter() {
     let indexToPutCounter: number | undefined;
     let newBoard = [...board];
+    let newCounterPosition = counterPosition! + 3;
 
-    if (newBoard[0][counterPosition!] > 0) return;
+    if (newBoard[3][newCounterPosition] > 0) return;
 
-    for (let i = 0; i < newBoard.length; i++) {
-      if (newBoard[i][counterPosition!] > 0) {
+    for (let i = 3; i < newBoard.length - 3; i++) {
+      if (newBoard[i][newCounterPosition] > 0) {
         indexToPutCounter = i - 1;
         break;
       }
     }
-    if (indexToPutCounter !== undefined && indexToPutCounter >= 0) {
-      newBoard[indexToPutCounter][counterPosition!] = player;
+    if (indexToPutCounter !== undefined && indexToPutCounter >= 3) {
+      newBoard[indexToPutCounter][newCounterPosition] = player;
       setBoard(newBoard);
       changeCurrentPlayer();
     }
     if (!indexToPutCounter) {
-      newBoard[newBoard.length - 1][counterPosition!] = player;
+      newBoard[newBoard.length - 4][newCounterPosition] = player;
       setBoard(newBoard);
       changeCurrentPlayer();
     }

@@ -14,14 +14,19 @@ const PointerElement = styled.img<IPointer>`
 
 interface IPointer {
   position: number;
+  player: number;
 }
 
-export default function Pointer({ position }: IPointer) {
+export default function Pointer({ position, player }: IPointer) {
   return (
     <StyledWrapper>
       <PointerElement
         position={position}
-        src="/assets/images/marker-red.svg"
+        src={
+          player === 1
+            ? "/assets/images/marker-red.svg"
+            : "/assets/images/marker-yellow.svg"
+        }
         alt="icon of pointer"
       />
     </StyledWrapper>

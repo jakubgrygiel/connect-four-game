@@ -1,3 +1,6 @@
+// virtual board
+// game board i = 3 to 8, j = 3 to 9
+
 function getMatch(arr: number[]) {
   const match = arr.every((el) => el === arr[0]);
   if (match) {

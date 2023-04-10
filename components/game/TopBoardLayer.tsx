@@ -12,10 +12,14 @@ const StyledWrapper = styled.div`
 
 interface ITopBoardLayerProps {
   counterPosition: number | undefined;
+  player: number;
+  changeCurrentPlayer: () => void;
 }
 
 export default function TopBoardLayer({
   counterPosition,
+  player,
+  changeCurrentPlayer,
 }: ITopBoardLayerProps) {
   const [board, setBoard] = useState<number[][]>([
     [0, 0, 0, 0, 0, 0, 0],
@@ -39,6 +43,7 @@ export default function TopBoardLayer({
   function addNewCounter() {
     let indexToPutCounter: number | undefined;
     let newBoard = [...board];
+
     if (newBoard[0][counterPosition!] > 0) return;
 
     for (let i = 0; i < newBoard.length; i++) {
@@ -47,13 +52,15 @@ export default function TopBoardLayer({
         break;
       }
     }
-    if (indexToPutCounter) {
-      newBoard[indexToPutCounter][counterPosition!] = 1;
+    if (indexToPutCounter !== undefined && indexToPutCounter >= 0) {
+      newBoard[indexToPutCounter][counterPosition!] = player;
       setBoard(newBoard);
+      changeCurrentPlayer();
     }
     if (!indexToPutCounter) {
-      newBoard[newBoard.length - 1][counterPosition!] = 1;
+      newBoard[newBoard.length - 1][counterPosition!] = player;
       setBoard(newBoard);
+      changeCurrentPlayer();
     }
   }
 

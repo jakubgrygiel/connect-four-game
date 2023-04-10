@@ -45,7 +45,12 @@ interface IPosition {
   position: number;
 }
 
-export default function Board() {
+interface IBoardProps {
+  player: number;
+  changeCurrentPlayer: () => void;
+}
+
+export default function Board({ changeCurrentPlayer, player }: IBoardProps) {
   const [hoverColumn, setHoverColumn] = useState<number>(0);
   const [counterPosition, setCounterPosition] = useState<number | undefined>();
 
@@ -58,14 +63,17 @@ export default function Board() {
   }
 
   function chooseCounterPosition(col: number) {
-    console.log("board:", col);
     setCounterPosition(col);
   }
 
   return (
     <StyledWrapper>
       <Pointer position={hoverColumn} />
-      <BoardLayer counterPosition={counterPosition} />
+      <BoardLayer
+        counterPosition={counterPosition}
+        player={player}
+        changeCurrentPlayer={changeCurrentPlayer}
+      />
       <HoverLayer
         changeHoveredColumn={changeHoveredColumn}
         chooseCounterPosition={chooseCounterPosition}

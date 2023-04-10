@@ -29,14 +29,24 @@ const TopLayer = styled.div`
 
 interface IBoardLayerProps {
   counterPosition: number | undefined;
+  player: number;
+  changeCurrentPlayer: () => void;
 }
 
-export default function BoardLayer({ counterPosition }: IBoardLayerProps) {
+export default function BoardLayer({
+  counterPosition,
+  player,
+  changeCurrentPlayer,
+}: IBoardLayerProps) {
   return (
     <>
       <BottomLayer></BottomLayer>
       <MiddleLayer></MiddleLayer>
-      <TopBoardLayer counterPosition={counterPosition} />
+      <TopBoardLayer
+        counterPosition={counterPosition}
+        player={player}
+        changeCurrentPlayer={changeCurrentPlayer}
+      />
     </>
   );
 }

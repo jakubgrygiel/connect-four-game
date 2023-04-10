@@ -68,7 +68,7 @@ const BoardWrapper = styled.div`
   animation: ${showIn} 0.3s cubic-bezier(0.67, 0.36, 0.39, 1.36);
 `;
 
-const Turn = styled.div`
+const Turn = styled.div<IPlayer>`
   position: absolute;
   bottom: -114px;
   display: flex;
@@ -79,7 +79,10 @@ const Turn = styled.div`
   width: 197px;
   padding-top: 24px;
   color: ${({ theme }) => theme.colors.white};
-  background-image: url("/assets/images/turn-background-red.svg");
+  background-image: url(${({ player }) =>
+    player === 1
+      ? "/assets/images/turn-background-red.svg"
+      : "/assets/images/turn-background-yellow.svg"});
   background-repeat: no-repeat;
 `;
 
@@ -90,14 +93,22 @@ const TurnTitle = styled.h3`
 const Time = styled.p`
   font-size: 56px;
 `;
-
+interface IPlayer {
+  player: number;
+}
 interface IGameProps {
   toggleMenu: () => void;
 }
 
 export default function Game({ toggleMenu }: IGameProps) {
+  const [currentPlayer, setCurrentPlayer] = useState(1);
+
   function handleClickOpenMenu() {
     toggleMenu();
+  }
+
+  function changeCurrentPlayer() {
+    setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1));
   }
 
   return (
@@ -111,9 +122,12 @@ export default function Game({ toggleMenu }: IGameProps) {
       </TopWrapper>
       <BoardWrapper>
         <Points player="1" points={12} />
-        <Board />
+        <Board
+          changeCurrentPlayer={changeCurrentPlayer}
+          player={currentPlayer}
+        />
         <Points player="2" points={23} />
-        <Turn>
+        <Turn player={currentPlayer}>
           <TurnTitle>PLAYER 1’S TURN</TurnTitle>
           <Time>3s</Time>
         </Turn>

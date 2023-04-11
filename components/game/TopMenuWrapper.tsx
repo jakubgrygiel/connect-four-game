@@ -1,7 +1,4 @@
-import { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import Board from "./Board";
-import Points from "./Points";
 
 const fadeIn = keyframes`
     from{opacity:0;}
@@ -47,9 +44,6 @@ const Btn = styled.button`
   }
 `;
 
-interface IPlayer {
-  player: number;
-}
 interface ITopMenuWrapperProps {
   toggleMenu: () => void;
   resetGame: () => void;

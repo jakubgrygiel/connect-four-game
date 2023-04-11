@@ -92,9 +92,10 @@ const Pause = styled.h3`
 
 interface IGameMenuProps {
   toggleMenu: () => void;
+  resetGame: () => void;
 }
 
-export default function GameMenu({ toggleMenu }: IGameMenuProps) {
+export default function GameMenu({ toggleMenu, resetGame }: IGameMenuProps) {
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -103,6 +104,7 @@ export default function GameMenu({ toggleMenu }: IGameMenuProps) {
   }
 
   function handleClickRestart() {
+    resetGame();
     closeMenu();
   }
 

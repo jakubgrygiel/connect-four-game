@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Board from "./Board";
 import Points from "./Points";
+import TopMenuWrapper from "./TopMenuWrapper";
+import BoardWrapper from "./BoardWrapper";
 
 const fadeIn = keyframes`
     from{opacity:0;}
@@ -24,75 +26,6 @@ const StyledWrapper = styled.div`
   height: 100%;
   width: 100%;
 `;
-
-const TopWrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  width: 632px;
-  margin-top: 48px;
-  animation: ${fadeIn} 0.3s linear;
-`;
-
-const Logo = styled.div`
-  z-index: -1;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const Btn = styled.button`
-  cursor: pointer;
-  padding: 10px 20px;
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.darkPurple};
-  border: none;
-  border-radius: 20px;
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.red};
-  }
-`;
-
-const BoardWrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 60px;
-  animation: ${showIn} 0.3s cubic-bezier(0.67, 0.36, 0.39, 1.36);
-`;
-
-const Turn = styled.div<IPlayer>`
-  position: absolute;
-  bottom: -114px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 165px;
-  width: 197px;
-  padding-top: 24px;
-  color: ${({ theme }) => theme.colors.white};
-  background-image: url(${({ player }) =>
-    player === 1
-      ? "/assets/images/turn-background-red.svg"
-      : "/assets/images/turn-background-yellow.svg"});
-  background-repeat: no-repeat;
-`;
-
-const TurnTitle = styled.h3`
-  font-size: 16px;
-`;
-
-const Time = styled.p`
-  font-size: 56px;
-`;
 interface IPlayer {
   player: number;
 }
@@ -102,36 +35,90 @@ interface IGameProps {
 
 export default function Game({ toggleMenu }: IGameProps) {
   const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [counterPosition, setCounterPosition] = useState<number | undefined>();
+  const [board, setBoard] = useState<number[][]>([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ]);
 
-  function handleClickOpenMenu() {
-    toggleMenu();
+  useEffect(() => {
+    if (typeof counterPosition === "number") {
+      addNewCounter();
+    }
+    setCounterPosition(undefined);
+  }, [counterPosition]);
+
+  function chooseCounterPosition(col: number) {
+    setCounterPosition(col);
+  }
+
+  function addNewCounter() {
+    let indexToPutCounter: number | undefined;
+    let newBoard = [...board];
+    let newCounterPosition = counterPosition! + 3;
+
+    if (newBoard[3][newCounterPosition] > 0) return;
+
+    for (let i = 3; i < newBoard.length - 3; i++) {
+      if (newBoard[i][newCounterPosition] > 0) {
+        indexToPutCounter = i - 1;
+        break;
+      }
+    }
+    if (indexToPutCounter !== undefined && indexToPutCounter >= 3) {
+      newBoard[indexToPutCounter][newCounterPosition] = currentPlayer;
+      setBoard(newBoard);
+      changeCurrentPlayer();
+    }
+    if (!indexToPutCounter) {
+      newBoard[newBoard.length - 4][newCounterPosition] = currentPlayer;
+      setBoard(newBoard);
+      changeCurrentPlayer();
+    }
   }
 
   function changeCurrentPlayer() {
     setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1));
   }
 
+  function resetGame() {
+    setBoard([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+    setCurrentPlayer(1);
+  }
+
   return (
     <StyledWrapper>
-      <TopWrapper>
-        <Btn onClick={handleClickOpenMenu}>MENU</Btn>
-        <Logo>
-          <img src="/assets/images/logo.svg" alt="game logo" />
-        </Logo>
-        <Btn>RESTART</Btn>
-      </TopWrapper>
-      <BoardWrapper>
-        <Points player="1" points={12} />
-        <Board
-          changeCurrentPlayer={changeCurrentPlayer}
-          player={currentPlayer}
-        />
-        <Points player="2" points={23} />
-        <Turn player={currentPlayer}>
-          <TurnTitle>PLAYER 1’S TURN</TurnTitle>
-          <Time>3s</Time>
-        </Turn>
-      </BoardWrapper>
+      <TopMenuWrapper toggleMenu={toggleMenu} resetGame={resetGame} />
+      <BoardWrapper
+        board={board}
+        counterPosition={counterPosition}
+        chooseCounterPosition={chooseCounterPosition}
+        changeCurrentPlayer={changeCurrentPlayer}
+        player={currentPlayer}
+      />
     </StyledWrapper>
   );
 }

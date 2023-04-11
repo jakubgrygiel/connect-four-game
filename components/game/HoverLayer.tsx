@@ -1,5 +1,3 @@
-import getWinner from "@/utils/gameRules";
-import { useState } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`

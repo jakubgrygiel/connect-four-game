@@ -1,4 +1,3 @@
-import getWinner from "@/utils/gameRules";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Pointer from "./Pointer";
@@ -16,54 +15,25 @@ const StyledWrapper = styled.div`
   padding: 48px;
 `;
 
-const BottomLayer = styled.div`
-  position: absolute;
-  top: 0;
-  height: 594px;
-  width: 632px;
-  background-image: url("/assets/images/board-layer-black-large.svg");
-  background-repeat: no-repeat;
-`;
-
-const MiddleLayer = styled.div`
-  position: absolute;
-  top: 0;
-  height: 550px;
-  width: 632px;
-`;
-
-const TopLayer = styled.div`
-  position: absolute;
-  top: 0;
-  height: 584px;
-  width: 632px;
-  background-image: url("/assets/images/board-layer-white-large.svg");
-  background-repeat: no-repeat;
-`;
-
-interface IPosition {
-  position: number;
-}
-
 interface IBoardProps {
   player: number;
+  board: number[][];
+  counterPosition: number | undefined;
+  chooseCounterPosition: (col: number) => void;
   changeCurrentPlayer: () => void;
 }
 
-export default function Board({ changeCurrentPlayer, player }: IBoardProps) {
+export default function Board({
+  changeCurrentPlayer,
+  chooseCounterPosition,
+  counterPosition,
+  board,
+  player,
+}: IBoardProps) {
   const [hoverColumn, setHoverColumn] = useState<number>(0);
-  const [counterPosition, setCounterPosition] = useState<number | undefined>();
-
-  useEffect(() => {
-    setCounterPosition(undefined);
-  }, [counterPosition]);
 
   function changeHoveredColumn(col: number) {
     setHoverColumn(col);
-  }
-
-  function chooseCounterPosition(col: number) {
-    setCounterPosition(col);
   }
 
   return (
@@ -72,6 +42,7 @@ export default function Board({ changeCurrentPlayer, player }: IBoardProps) {
       <BoardLayer
         counterPosition={counterPosition}
         player={player}
+        board={board}
         changeCurrentPlayer={changeCurrentPlayer}
       />
       <HoverLayer

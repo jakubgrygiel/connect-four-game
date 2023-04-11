@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import TopBoardLayer from "./TopBoardLayer";
+import MiddleBoardLayer from "./MiddleBoardLayer";
 
 const BottomLayer = styled.div`
   position: absolute;
@@ -11,42 +11,19 @@ const BottomLayer = styled.div`
   background-repeat: no-repeat;
 `;
 
-const MiddleLayer = styled.div`
-  position: absolute;
-  top: 0;
-  height: 550px;
-  width: 632px;
-`;
-
-const TopLayer = styled.div`
-  position: absolute;
-  top: 0;
-  height: 584px;
-  width: 632px;
-  background-image: url("/assets/images/board-layer-white-large.svg");
-  background-repeat: no-repeat;
-`;
-
 interface IBoardLayerProps {
   counterPosition: number | undefined;
   player: number;
+  board: number[][];
   changeCurrentPlayer: () => void;
 }
 
-export default function BoardLayer({
-  counterPosition,
-  player,
-  changeCurrentPlayer,
-}: IBoardLayerProps) {
+export default function BoardLayer({ board }: IBoardLayerProps) {
   return (
     <>
       <BottomLayer></BottomLayer>
-      <MiddleLayer></MiddleLayer>
-      <TopBoardLayer
-        counterPosition={counterPosition}
-        player={player}
-        changeCurrentPlayer={changeCurrentPlayer}
-      />
+      <MiddleBoardLayer board={board} />
+      <TopBoardLayer />
     </>
   );
 }

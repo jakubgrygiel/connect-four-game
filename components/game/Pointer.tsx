@@ -9,7 +9,7 @@ const StyledWrapper = styled.div`
 
 const PointerElement = styled.img<IPointer>`
   transform: ${({ position }) => `translateX(${position * 88}px)`};
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s cubic-bezier(0.98, 1.57, 0.78, 0.83);
 `;
 
 interface IPointer {

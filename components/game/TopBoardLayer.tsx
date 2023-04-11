@@ -1,3 +1,4 @@
+import getWinner from "@/utils/gameRules";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -42,9 +43,9 @@ export default function TopBoardLayer({
     }
   }, [counterPosition]);
 
-  useEffect(() => {
-    console.log(board);
-  }, [board]);
+  // useEffect(() => {
+  //   console.log(board);
+  // }, [board]);
 
   function addNewCounter() {
     let indexToPutCounter: number | undefined;
@@ -72,13 +73,21 @@ export default function TopBoardLayer({
   }
 
   let testBoard: number[][] = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 1, 2, 0, 0, 0],
-    [0, 1, 2, 2, 0, 0, 0],
-    [1, 1, 1, 1, 2, 2, 2],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 2, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 2, 2, 2, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
+
+  console.log(getWinner(testBoard));
 
   return <StyledWrapper></StyledWrapper>;
 }

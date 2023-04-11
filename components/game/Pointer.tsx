@@ -14,10 +14,14 @@ const PointerElement = styled.img<IPointer>`
 
 interface IPointer {
   position: number;
+}
+
+interface IPointerProps {
+  position: number;
   player: number;
 }
 
-export default function Pointer({ position, player }: IPointer) {
+export default function Pointer({ position, player }: IPointerProps) {
   return (
     <StyledWrapper>
       <PointerElement

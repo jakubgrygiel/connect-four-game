@@ -1,4 +1,4 @@
-import { initialBoard } from "@/utils/gameRules";
+import getWinner, { initialBoard } from "@/utils/gameRules";
 import { createContext, useEffect, useState } from "react";
 
 interface IContext {
@@ -6,6 +6,7 @@ interface IContext {
   currentPlayer: number;
   counterColPosition: number | undefined;
   board: number[][];
+  winningCounters: number[][] | undefined;
   changeCurrentPlayer: () => void;
   changeCounterPosition: (col: number) => void;
   startGame: () => void;
@@ -21,6 +22,7 @@ const GameContext = createContext<IContext>({
   currentPlayer: 1,
   counterColPosition: undefined,
   board: [],
+  winningCounters: [],
   changeCurrentPlayer: () => {},
   changeCounterPosition: (col: number) => {},
   startGame: () => {},
@@ -29,7 +31,7 @@ const GameContext = createContext<IContext>({
 
 export function GameContextProvider({ children }: IGameContextProvider) {
   const [points, setPoints] = useState();
-  const [winner, setWinner] = useState();
+  const [winner, setWinner] = useState<number | undefined>();
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [counterColPosition, setCounterColPosition] = useState<
     number | undefined
@@ -49,12 +51,22 @@ export function GameContextProvider({ children }: IGameContextProvider) {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
+  const [winningCounters, setWinningCounters] = useState<
+    number[][] | undefined
+  >();
+
   useEffect(() => {
     if (typeof counterColPosition === "number") {
       addNewCounter();
     }
     setCounterColPosition(undefined);
   }, [counterColPosition]);
+
+  useEffect(() => {
+    const { winnerNum, winningCounters } = getWinner(board);
+    setWinner(winnerNum);
+    setWinningCounters(winningCounters);
+  }, [board]);
 
   function changeCounterPosition(col: number) {
     setCounterColPosition(col);
@@ -102,6 +114,7 @@ export function GameContextProvider({ children }: IGameContextProvider) {
     currentPlayer: currentPlayer,
     counterColPosition: counterColPosition,
     board: board,
+    winningCounters: winningCounters,
     changeCurrentPlayer: changeCurrentPlayer,
     changeCounterPosition: changeCounterPosition,
     startGame: startGame,

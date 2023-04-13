@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Counter from "./Counter";
 import { useContext } from "react";
 import GameContext from "@/context/game-context";
+import CounterWinInfo from "./CounterWinInfo";
 
 const StyledWrapper = styled.div`
   position: absolute;
@@ -11,7 +12,7 @@ const StyledWrapper = styled.div`
 `;
 
 export default function MiddleBoardLayer() {
-  const { board } = useContext(GameContext);
+  const { board, winningCounters } = useContext(GameContext);
 
   function renderCounters() {
     return board.map((row, i) => {
@@ -29,5 +30,24 @@ export default function MiddleBoardLayer() {
     });
   }
 
-  return <StyledWrapper>{renderCounters()}</StyledWrapper>;
+  function renderWinningInfo() {
+    if (winningCounters) {
+      console.log(winningCounters);
+      return winningCounters.map((row) => {
+        return (
+          <CounterWinInfo
+            key={`info-${row[1] - 3}-${row[0] - 3}`}
+            position={{ x: row[1] - 3, y: row[0] - 3 }}
+          />
+        );
+      });
+    }
+  }
+
+  return (
+    <StyledWrapper>
+      {renderCounters()}
+      {renderWinningInfo()}
+    </StyledWrapper>
+  );
 }

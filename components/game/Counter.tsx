@@ -9,11 +9,20 @@ const drop = (position: { x: number; y: number }) => keyframes`
   }
 `;
 
-const StyledWrapper = styled.img<ICounterProps>`
+const StyledWrapper = styled.div<ICounterProps>`
   position: absolute;
   top: ${({ position }) => position.y * 88 + 18}px;
   left: ${({ position }) => position.x * 88 + 18}px;
-  animation: ${({ position }) => drop(position)} 0.3s ease-in-out;
+  height: 75px;
+  width: 70px;
+  background-image: url(${({ player }) =>
+    player === 1
+      ? "/assets/images/counter-red-large.svg"
+      : "/assets/images/counter-yellow-large.svg"});
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: ${({ position }) => drop(position)} 0.5s
+    cubic-bezier(0.82, 1.49, 0.53, 0.8);
 `;
 
 interface ICounterProps {
@@ -22,16 +31,5 @@ interface ICounterProps {
 }
 
 export default function Counter({ player, position }: ICounterProps) {
-  return (
-    <StyledWrapper
-      src={
-        player === 1
-          ? "/assets/images/counter-red-large.svg"
-          : "/assets/images/counter-yellow-large.svg"
-      }
-      alt="image of counter"
-      player={player}
-      position={position}
-    />
-  );
+  return <StyledWrapper player={player} position={position} />;
 }

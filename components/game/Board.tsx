@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Pointer from "./Pointer";
 import HoverLayer from "./HoverLayer";
@@ -14,14 +14,6 @@ const StyledWrapper = styled.div`
   width: 632px;
   padding: 48px;
 `;
-
-interface IBoardProps {
-  player: number;
-  board: number[][];
-  counterPosition: number | undefined;
-  chooseCounterPosition: (col: number) => void;
-  changeCurrentPlayer: () => void;
-}
 
 export default function Board() {
   const [hoverColumn, setHoverColumn] = useState<number>(0);

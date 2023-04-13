@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import Board from "./Board";
 import Points from "./Points";

@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import Head from "next/head";
 import theme from "@/theme/theme";
+import { GameContextProvider } from "@/context/game-context";
 
 const GlobalStyle = createGlobalStyle`
     *,*::before,*::after{
@@ -30,7 +31,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <GameContextProvider>
+          <Component {...pageProps} />
+        </GameContextProvider>
       </ThemeProvider>
     </>
   );

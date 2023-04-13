@@ -1,5 +1,6 @@
 import Game from "@/components/game/Game";
 import GameMenu from "@/components/game/GameMenu";
+import { initialBoard } from "@/utils/gameRules";
 import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
@@ -33,86 +34,7 @@ const BottomBanner = styled.div`
 `;
 
 export default function GamePage() {
-  const [points, setPoints] = useState();
-  const [winner, setWinner] = useState();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const [currentPlayer, setCurrentPlayer] = useState(1);
-  const [counterColPosition, setCounterColPosition] = useState<
-    number | undefined
-  >();
-  const [board, setBoard] = useState<number[][]>([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]);
-
-  useEffect(() => {
-    if (typeof counterColPosition === "number") {
-      addNewCounter();
-    }
-    setCounterColPosition(undefined);
-  }, [counterColPosition]);
-
-  function chooseCounterPosition(col: number) {
-    setCounterColPosition(col);
-  }
-
-  function changeCurrentPlayer() {
-    setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1));
-  }
-
-  function addNewCounter() {
-    let indexToPutCounter: number | undefined;
-    let newBoard = [...board];
-    let newCounterPosition = counterColPosition! + 3;
-
-    if (newBoard[3][newCounterPosition] > 0) return;
-
-    for (let i = 3; i < newBoard.length - 3; i++) {
-      if (newBoard[i][newCounterPosition] > 0) {
-        indexToPutCounter = i - 1;
-        break;
-      }
-    }
-    if (indexToPutCounter !== undefined && indexToPutCounter >= 3) {
-      newBoard[indexToPutCounter][newCounterPosition] = currentPlayer;
-      setBoard(newBoard);
-      changeCurrentPlayer();
-    }
-    if (!indexToPutCounter) {
-      newBoard[newBoard.length - 4][newCounterPosition] = currentPlayer;
-      setBoard(newBoard);
-      changeCurrentPlayer();
-    }
-  }
-
-  function resetGame() {
-    let newBoard = [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ];
-    setBoard(newBoard);
-    setCurrentPlayer(1);
-  }
 
   function toggleMenu() {
     setMenuIsOpen((prevState) => !prevState);
@@ -120,17 +42,9 @@ export default function GamePage() {
 
   return (
     <StyledWrapper>
-      <Game
-        board={board}
-        resetGame={resetGame}
-        toggleMenu={toggleMenu}
-        counterPosition={counterColPosition}
-        chooseCounterPosition={chooseCounterPosition}
-        changeCurrentPlayer={changeCurrentPlayer}
-        player={currentPlayer}
-      />
+      <Game toggleMenu={toggleMenu} />
       <BottomBanner></BottomBanner>
-      {menuIsOpen && <GameMenu toggleMenu={toggleMenu} resetGame={resetGame} />}
+      {menuIsOpen && <GameMenu toggleMenu={toggleMenu} />}
     </StyledWrapper>
   );
 }

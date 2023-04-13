@@ -25,34 +25,14 @@ const StyledWrapper = styled.div`
 `;
 
 interface IGameProps {
-  board: number[][];
-  player: number;
-  counterPosition: number | undefined;
   toggleMenu: () => void;
-  resetGame: () => void;
-  chooseCounterPosition: (col: number) => void;
-  changeCurrentPlayer: () => void;
 }
 
-export default function Game({
-  board,
-  player,
-  counterPosition,
-  toggleMenu,
-  resetGame,
-  chooseCounterPosition,
-  changeCurrentPlayer,
-}: IGameProps) {
+export default function Game({ toggleMenu }: IGameProps) {
   return (
     <StyledWrapper>
-      <TopMenuWrapper toggleMenu={toggleMenu} resetGame={resetGame} />
-      <BoardWrapper
-        board={board}
-        counterPosition={counterPosition}
-        chooseCounterPosition={chooseCounterPosition}
-        changeCurrentPlayer={changeCurrentPlayer}
-        player={player}
-      />
+      <TopMenuWrapper toggleMenu={toggleMenu} />
+      <BoardWrapper />
     </StyledWrapper>
   );
 }

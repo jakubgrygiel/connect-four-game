@@ -1,3 +1,5 @@
+import GameContext from "@/context/game-context";
+import { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
@@ -46,13 +48,11 @@ const Btn = styled.button`
 
 interface ITopMenuWrapperProps {
   toggleMenu: () => void;
-  resetGame: () => void;
 }
 
-export default function TopMenuWrapper({
-  toggleMenu,
-  resetGame,
-}: ITopMenuWrapperProps) {
+export default function TopMenuWrapper({ toggleMenu }: ITopMenuWrapperProps) {
+  const { resetGame } = useContext(GameContext);
+
   function handleClickOpenMenu() {
     toggleMenu();
   }

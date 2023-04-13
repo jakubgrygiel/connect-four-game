@@ -1,3 +1,5 @@
+import GameContext from "@/context/game-context";
+import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -12,42 +14,40 @@ const HoverElement = styled.div``;
 
 interface IHoverLayerProps {
   changeHoveredColumn: (col: number) => void;
-  chooseCounterPosition: (col: number) => void;
 }
 
-export default function HoverLayer({
-  changeHoveredColumn,
-  chooseCounterPosition,
-}: IHoverLayerProps) {
+export default function HoverLayer({ changeHoveredColumn }: IHoverLayerProps) {
+  const { changeCounterPosition } = useContext(GameContext);
+
   return (
     <StyledWrapper>
       <HoverElement
         onMouseEnter={() => changeHoveredColumn(0)}
-        onClick={() => chooseCounterPosition(0)}
+        onClick={() => changeCounterPosition(0)}
       />
       <HoverElement
         onMouseEnter={() => changeHoveredColumn(1)}
-        onClick={() => chooseCounterPosition(1)}
+        onClick={() => changeCounterPosition(1)}
       />
       <HoverElement
         onMouseEnter={() => changeHoveredColumn(2)}
-        onClick={() => chooseCounterPosition(2)}
+        onClick={() => changeCounterPosition(2)}
       />
       <HoverElement
         onMouseEnter={() => changeHoveredColumn(3)}
-        onClick={() => chooseCounterPosition(3)}
+        onClick={() => changeCounterPosition(3)}
       />
       <HoverElement
         onMouseEnter={() => changeHoveredColumn(4)}
-        onClick={() => chooseCounterPosition(4)}
+        onClick={() => changeCounterPosition(4)}
       />
       <HoverElement
         onMouseEnter={() => changeHoveredColumn(5)}
-        onClick={() => chooseCounterPosition(5)}
+        onClick={() => changeCounterPosition(5)}
       />
       <HoverElement
         onMouseEnter={() => changeHoveredColumn(6)}
-        onClick={() => chooseCounterPosition(6)}
+        onClick={() => changeCounterPosition(6)}
       />
     </StyledWrapper>
   );

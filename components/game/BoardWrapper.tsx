@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Board from "./Board";
 import Points from "./Points";
+import GameContext from "@/context/game-context";
 
 const fadeIn = keyframes`
     from{opacity:0;}
@@ -50,34 +51,17 @@ const Time = styled.p`
 interface IPlayer {
   player: number;
 }
-interface IBoardWrapperProps {
-  board: number[][];
-  player: number;
-  counterPosition: number | undefined;
-  chooseCounterPosition: (col: number) => void;
-  changeCurrentPlayer: () => void;
-}
 
-export default function BoardWrapper({
-  board,
-  player,
-  counterPosition,
-  changeCurrentPlayer,
-  chooseCounterPosition,
-}: IBoardWrapperProps) {
+export default function BoardWrapper() {
+  const { currentPlayer, points } = useContext(GameContext);
+
   return (
     <StyledWrapper>
-      <Points player="1" points={12} />
-      <Board
-        changeCurrentPlayer={changeCurrentPlayer}
-        chooseCounterPosition={chooseCounterPosition}
-        counterPosition={counterPosition}
-        player={player}
-        board={board}
-      />
-      <Points player="2" points={23} />
-      <Turn player={player}>
-        <TurnTitle>PLAYER {player}’S TURN</TurnTitle>
+      <Points player="1" points={points.player1} />
+      <Board />
+      <Points player="2" points={points.player2} />
+      <Turn player={currentPlayer}>
+        <TurnTitle>PLAYER {currentPlayer}’S TURN</TurnTitle>
         <Time>3s</Time>
       </Turn>
     </StyledWrapper>

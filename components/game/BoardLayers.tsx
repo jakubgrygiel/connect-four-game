@@ -11,18 +11,11 @@ const BottomLayer = styled.div`
   background-repeat: no-repeat;
 `;
 
-interface IBoardLayerProps {
-  counterPosition: number | undefined;
-  player: number;
-  board: number[][];
-  changeCurrentPlayer: () => void;
-}
-
-export default function BoardLayer({ board }: IBoardLayerProps) {
+export default function BoardLayer() {
   return (
     <>
       <BottomLayer></BottomLayer>
-      <MiddleBoardLayer board={board} />
+      <MiddleBoardLayer />
       <TopBoardLayer />
     </>
   );

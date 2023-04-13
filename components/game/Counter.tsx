@@ -13,7 +13,7 @@ const StyledWrapper = styled.img<ICounterProps>`
   position: absolute;
   top: ${({ position }) => position.y * 88 + 18}px;
   left: ${({ position }) => position.x * 88 + 18}px;
-  animation: ${({ position }) => drop(position)} 0.3s ease-in-out; */
+  animation: ${({ position }) => drop(position)} 0.3s ease-in-out;
 `;
 
 interface ICounterProps {

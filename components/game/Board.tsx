@@ -23,13 +23,7 @@ interface IBoardProps {
   changeCurrentPlayer: () => void;
 }
 
-export default function Board({
-  changeCurrentPlayer,
-  chooseCounterPosition,
-  counterPosition,
-  board,
-  player,
-}: IBoardProps) {
+export default function Board() {
   const [hoverColumn, setHoverColumn] = useState<number>(0);
 
   function changeHoveredColumn(col: number) {
@@ -38,17 +32,9 @@ export default function Board({
 
   return (
     <StyledWrapper>
-      <Pointer position={hoverColumn} player={player} />
-      <BoardLayer
-        counterPosition={counterPosition}
-        player={player}
-        board={board}
-        changeCurrentPlayer={changeCurrentPlayer}
-      />
-      <HoverLayer
-        changeHoveredColumn={changeHoveredColumn}
-        chooseCounterPosition={chooseCounterPosition}
-      />
+      <Pointer position={hoverColumn} />
+      <BoardLayer />
+      <HoverLayer changeHoveredColumn={changeHoveredColumn} />
     </StyledWrapper>
   );
 }

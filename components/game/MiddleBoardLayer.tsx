@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Counter from "./Counter";
+import { useContext } from "react";
+import GameContext from "@/context/game-context";
 
 const StyledWrapper = styled.div`
   position: absolute;
@@ -8,11 +10,9 @@ const StyledWrapper = styled.div`
   width: 632px;
 `;
 
-interface IMiddleBoardLayerProps {
-  board: number[][];
-}
+export default function MiddleBoardLayer() {
+  const { board } = useContext(GameContext);
 
-export default function MiddleBoardLayer({ board }: IMiddleBoardLayerProps) {
   function renderCounters() {
     return board.map((row, i) => {
       return row.map((col, j) => {

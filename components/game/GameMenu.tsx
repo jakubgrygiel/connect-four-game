@@ -1,5 +1,6 @@
+import GameContext from "@/context/game-context";
 import Link from "next/link";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
@@ -92,10 +93,10 @@ const Pause = styled.h3`
 
 interface IGameMenuProps {
   toggleMenu: () => void;
-  resetGame: () => void;
 }
 
-export default function GameMenu({ toggleMenu, resetGame }: IGameMenuProps) {
+export default function GameMenu({ toggleMenu }: IGameMenuProps) {
+  const { resetGame } = useContext(GameContext);
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 

@@ -1,3 +1,5 @@
+import GameContext from "@/context/game-context";
+import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`
@@ -18,16 +20,17 @@ interface IPointer {
 
 interface IPointerProps {
   position: number;
-  player: number;
 }
 
-export default function Pointer({ position, player }: IPointerProps) {
+export default function Pointer({ position }: IPointerProps) {
+  const { currentPlayer } = useContext(GameContext);
+
   return (
     <StyledWrapper>
       <PointerElement
         position={position}
         src={
-          player === 1
+          currentPlayer === 1
             ? "/assets/images/marker-red.svg"
             : "/assets/images/marker-yellow.svg"
         }

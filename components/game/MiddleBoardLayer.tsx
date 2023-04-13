@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Counter from "./Counter";
-import { createId } from "@paralleldrive/cuid2";
 
 const StyledWrapper = styled.div`
   position: absolute;
@@ -20,7 +19,7 @@ export default function MiddleBoardLayer({ board }: IMiddleBoardLayerProps) {
         if (col !== 0) {
           return (
             <Counter
-              key={createId()}
+              key={`${j - 3}-${i - 3}`}
               player={col}
               position={{ x: j - 3, y: i - 3 }}
             />

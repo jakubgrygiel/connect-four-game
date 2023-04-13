@@ -37,7 +37,9 @@ export default function GamePage() {
   const [winner, setWinner] = useState();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [currentPlayer, setCurrentPlayer] = useState(1);
-  const [counterPosition, setCounterPosition] = useState<number | undefined>();
+  const [counterColPosition, setCounterColPosition] = useState<
+    number | undefined
+  >();
   const [board, setBoard] = useState<number[][]>([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -54,20 +56,24 @@ export default function GamePage() {
   ]);
 
   useEffect(() => {
-    if (typeof counterPosition === "number") {
+    if (typeof counterColPosition === "number") {
       addNewCounter();
     }
-    setCounterPosition(undefined);
-  }, [counterPosition]);
+    setCounterColPosition(undefined);
+  }, [counterColPosition]);
 
   function chooseCounterPosition(col: number) {
-    setCounterPosition(col);
+    setCounterColPosition(col);
+  }
+
+  function changeCurrentPlayer() {
+    setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1));
   }
 
   function addNewCounter() {
     let indexToPutCounter: number | undefined;
     let newBoard = [...board];
-    let newCounterPosition = counterPosition! + 3;
+    let newCounterPosition = counterColPosition! + 3;
 
     if (newBoard[3][newCounterPosition] > 0) return;
 
@@ -87,10 +93,6 @@ export default function GamePage() {
       setBoard(newBoard);
       changeCurrentPlayer();
     }
-  }
-
-  function changeCurrentPlayer() {
-    setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1));
   }
 
   function resetGame() {
@@ -122,7 +124,7 @@ export default function GamePage() {
         board={board}
         resetGame={resetGame}
         toggleMenu={toggleMenu}
-        counterPosition={counterPosition}
+        counterPosition={counterColPosition}
         chooseCounterPosition={chooseCounterPosition}
         changeCurrentPlayer={changeCurrentPlayer}
         player={currentPlayer}

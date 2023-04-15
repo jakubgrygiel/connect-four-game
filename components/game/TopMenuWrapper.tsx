@@ -7,11 +7,6 @@ const fadeIn = keyframes`
     to{opacity:0.5;}
 `;
 
-const showIn = keyframes`
-    from{transform: scale(0);}
-    to{transform: scale(1);}
-`;
-
 const StyledWrapper = styled.div`
   position: relative;
   display: flex;
@@ -19,8 +14,12 @@ const StyledWrapper = styled.div`
   align-items: center;
   gap: 24px;
   width: 632px;
-  margin-top: 48px;
+  padding: 48px 0;
   animation: ${fadeIn} 0.3s linear;
+
+  @media (max-width: ${({ theme }) => theme.screens.tablet}) {
+    padding: 24px 0;
+  }
 `;
 
 const Logo = styled.div`

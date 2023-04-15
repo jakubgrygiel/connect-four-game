@@ -7,6 +7,11 @@ const theme = {
     yellow: "hsla(41, 100%, 70%, 1)",
     white: "hsla(0, 0%, 100%, 1)",
   },
+
+  screens: {
+    tablet: "1100px",
+    mobile: "750px",
+  },
 };
 
 export default theme;

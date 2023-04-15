@@ -5,11 +5,11 @@ interface IContext {
   gameIsOn: boolean;
   boardIsBlocked: boolean;
   seconds: number;
-  points: { player1: number; player2: number };
-  winner: number | undefined;
   currentPlayer: number;
-  counterColPosition: number | undefined;
+  winner: number | undefined;
+  points: { player1: number; player2: number };
   board: number[][];
+  counterColPosition: number | undefined;
   winningCounters: number[][] | undefined;
   changeCurrentPlayer: () => void;
   changeCounterPosition: (col: number) => void;
@@ -28,11 +28,11 @@ const GameContext = createContext<IContext>({
   gameIsOn: true,
   boardIsBlocked: false,
   seconds: 0,
-  points: { player1: 0, player2: 0 },
-  winner: undefined,
   currentPlayer: 1,
-  counterColPosition: undefined,
+  winner: undefined,
+  points: { player1: 0, player2: 0 },
   board: [],
+  counterColPosition: undefined,
   winningCounters: [],
   changeCurrentPlayer: () => {},
   changeCounterPosition: (col: number) => {},
@@ -90,7 +90,6 @@ export function GameContextProvider({ children }: IGameContextProvider) {
     if (gameIsOn && seconds < 0) {
       currentPlayer === 1 && showWinner(2, undefined);
       currentPlayer === 2 && showWinner(1, undefined);
-      setSeconds(0);
       return;
     }
     if (gameIsOn && seconds >= 0) {

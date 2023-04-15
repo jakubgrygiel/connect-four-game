@@ -20,6 +20,10 @@ const StyledWrapper = styled.div`
   @media (max-width: ${({ theme }) => theme.screens.tablet}) {
     padding: 24px 0;
   }
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    width: 335px;
+  }
 `;
 
 const Logo = styled.div`
@@ -29,6 +33,12 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    img {
+      width: 40px;
+    }
+  }
 `;
 
 const Btn = styled.button`

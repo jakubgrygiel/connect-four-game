@@ -1,5 +1,8 @@
 import styled, { keyframes } from "styled-components";
 
+const largeImg = "/assets/images/winning-counter-large.svg";
+const smallImg = "/assets/images/winning-counter-small.svg";
+
 const showIn = keyframes`
   from{
     opacity: 0;
@@ -15,10 +18,17 @@ const StyledWrapper = styled.div<ICounterWinInfoProps>`
   left: ${({ position }) => position.x * 88 + 18}px;
   height: 75px;
   width: 70px;
-  background-image: url("/assets/images/winning-counter-large.svg");
+  background-image: url(${largeImg});
   background-position: center;
   background-repeat: no-repeat;
   animation: ${showIn} 0.5s ease-in-out;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    top: ${({ position }) => position.y * 47 - 10}px;
+    left: ${({ position }) => position.x * 47 - 1 + 3 * 47}px;
+
+    background-image: url(${smallImg});
+  }
 `;
 
 interface ICounterWinInfoProps {

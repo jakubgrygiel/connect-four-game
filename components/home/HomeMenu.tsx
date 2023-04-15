@@ -19,6 +19,13 @@ const StyledWrapper = styled.div`
   box-shadow: 0px 10px 0px ${({ theme }) => theme.colors.black};
   border-radius: 40px;
   animation: ${showIn} 0.3s cubic-bezier(0.67, 0.36, 0.39, 1.36);
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    width: 100%;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 const BtnsWrapper = styled.div`
@@ -30,6 +37,9 @@ const BtnsWrapper = styled.div`
   width: 100%;
 
   a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     text-decoration: none;
   }
@@ -41,6 +51,7 @@ const Button: any = styled.button`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  max-width: 400px;
   padding: 20px;
   font-size: 24px;
   background-color: ${({ theme }) => theme.colors.white};
@@ -52,6 +63,10 @@ const Button: any = styled.button`
   &:hover {
     border: 3px solid ${({ theme }) => theme.colors.darkPurple};
     box-shadow: 0px 10px 0px ${({ theme }) => theme.colors.darkPurple};
+  }
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    font-size: 24px;
   }
 `;
 

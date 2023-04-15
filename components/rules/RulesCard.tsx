@@ -21,6 +21,12 @@ const StyledWrapper = styled.div`
   box-shadow: 0px 10px 0px ${({ theme }) => theme.colors.black};
   border-radius: 40px;
   animation: ${showIn} 0.3s cubic-bezier(0.67, 0.36, 0.39, 1.36);
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 54px;
+  }
 `;
 
 const CheckIcon = styled.div`

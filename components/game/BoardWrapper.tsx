@@ -29,10 +29,16 @@ const PointsTabletWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
   width: 632px;
   padding: 0 12px;
+
   @media (min-width: ${({ theme }) => theme.screens.tablet}) {
     display: none;
+  }
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    width: 335px;
   }
 `;
 
@@ -54,7 +60,6 @@ export default function BoardWrapper() {
       <PointsDesktopWrapper>
         <Points player={1} points={points.player1} />
       </PointsDesktopWrapper>
-
       <Board />
       <PointsDesktopWrapper>
         <Points player={2} points={points.player2} />

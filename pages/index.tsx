@@ -11,6 +11,11 @@ const StyledWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 48px;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    padding: 20px;
+    background-color: ${({ theme }) => theme.colors.purple};
+  }
 `;
 
 export default function Home() {

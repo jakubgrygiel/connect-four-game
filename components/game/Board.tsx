@@ -14,6 +14,11 @@ const StyledWrapper = styled.div`
   height: 594px;
   width: 632px;
   padding: 48px;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    height: 310px;
+    width: 335px;
+  }
 `;
 
 export default function Board() {

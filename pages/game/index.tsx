@@ -1,7 +1,6 @@
 import Game from "@/components/game/Game";
 import GameMenu from "@/components/game/GameMenu";
 import GameContext from "@/context/game-context";
-import { initialBoard } from "@/utils/gameRules";
 import { useContext, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
@@ -21,6 +20,10 @@ const StyledWrapper = styled.div`
   padding: 0 48px;
   background-color: ${({ theme }) => theme.colors.purple};
   overflow: hidden;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    padding: 0 20px;
+  }
 `;
 
 const BottomBanner = styled.div<IWinner>`

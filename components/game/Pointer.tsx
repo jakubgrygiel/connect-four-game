@@ -7,11 +7,19 @@ const StyledWrapper = styled.div`
   top: -36px;
   width: 100%;
   padding-left: 33px;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    padding-left: 8px;
+  }
 `;
 
 const PointerElement = styled.img<IPointer>`
   transform: ${({ position }) => `translateX(${position * 88}px)`};
   transition: transform 0.3s cubic-bezier(0.98, 1.57, 0.78, 0.83);
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    transform: ${({ position }) => `translateX(${position * 47}px)`};
+  }
 `;
 
 interface IPointer {

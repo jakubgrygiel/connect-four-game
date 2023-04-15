@@ -2,6 +2,9 @@ import GameContext from "@/context/game-context";
 import { useContext } from "react";
 import styled from "styled-components";
 
+const redBg = "/assets/images/turn-background-red.svg";
+const yellowBg = "/assets/images/turn-background-yellow.svg";
+
 const Turn = styled.div<IPlayer>`
   position: absolute;
   bottom: -114px;
@@ -14,11 +17,16 @@ const Turn = styled.div<IPlayer>`
   padding-top: 24px;
   color: ${({ player, theme }) =>
     player === 1 ? theme.colors.white : theme.colors.black};
-  background-image: url(${({ player }) =>
-    player === 1
-      ? "/assets/images/turn-background-red.svg"
-      : "/assets/images/turn-background-yellow.svg"});
+  background-image: url(${({ player }) => (player === 1 ? redBg : yellowBg)});
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    bottom: -124px;
+    height: 150px;
+    width: 190px;
+  }
 `;
 
 const TurnTitle = styled.h3`
@@ -31,7 +39,7 @@ const Time = styled.p`
 
 const Winner = styled.div`
   position: absolute;
-  bottom: -114px;
+  bottom: -120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,11 +55,19 @@ const Winner = styled.div`
 const WinnerPlayer = styled.p`
   font-size: 20px;
   text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    font-size: 16px;
+  }
 `;
 
 const WinTitle = styled.p`
   font-size: 56px;
   text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    font-size: 36px;
+  }
 `;
 
 const PlayAgainBtn = styled.button`

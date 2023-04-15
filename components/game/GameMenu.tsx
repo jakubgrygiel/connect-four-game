@@ -21,6 +21,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
+  padding: 20px;
 `;
 
 const Backdrop = styled.div`
@@ -34,13 +35,14 @@ const Backdrop = styled.div`
 `;
 
 const Modal = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 44px;
-  width: 480px;
+  width: 100%;
+  max-width: 480px;
   padding: 70px 40px 60px 40px;
   background-color: ${({ theme }) => theme.colors.purple};
   border: 3px solid ${({ theme }) => theme.colors.black};
@@ -48,6 +50,9 @@ const Modal = styled.div`
   border-radius: 40px;
   animation: ${slideIn} 0.3s cubic-bezier(0.18, 0.59, 0.41, 1.21);
   transition: transform 0.3s cubic-bezier(0.68, -0.5, 0.51, 0.97);
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    padding: 30px 20px 30px 20px;
+  }
 `;
 
 const BtnsWrapper = styled.div`

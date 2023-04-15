@@ -18,16 +18,30 @@ const StyledWrapper = styled.div<IPlayer>`
     gap: 24px;
     flex-direction: ${({ player }) => (player === 1 ? "row" : "row-reverse")};
   }
+
+  @media (max-width: ${({ theme }) => theme.screens.mobile}) {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 35px;
+  }
 `;
 
 const Title = styled.h3`
   font-size: 20px;
   text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.screens.tablet}) {
+    font-size: 16px;
+  }
 `;
 
 const Num = styled.p`
   font-size: 56px;
   text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.screens.tablet}) {
+    font-size: 32px;
+  }
 `;
 
 const Img = styled.img<IPlayer>`

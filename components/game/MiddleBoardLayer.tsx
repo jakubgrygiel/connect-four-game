@@ -32,7 +32,6 @@ export default function MiddleBoardLayer() {
 
   function renderWinningInfo() {
     if (winningCounters) {
-      console.log(winningCounters);
       return winningCounters.map((row) => {
         return (
           <CounterWinInfo

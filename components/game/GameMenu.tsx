@@ -96,11 +96,12 @@ interface IGameMenuProps {
 }
 
 export default function GameMenu({ toggleMenu }: IGameMenuProps) {
-  const { resetGame } = useContext(GameContext);
+  const { resetGame, startGame } = useContext(GameContext);
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   function handleClickClose() {
+    startGame();
     closeMenu();
   }
 

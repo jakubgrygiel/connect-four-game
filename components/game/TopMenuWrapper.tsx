@@ -51,10 +51,11 @@ interface ITopMenuWrapperProps {
 }
 
 export default function TopMenuWrapper({ toggleMenu }: ITopMenuWrapperProps) {
-  const { resetGame } = useContext(GameContext);
+  const { resetGame, stopGame } = useContext(GameContext);
 
   function handleClickOpenMenu() {
     toggleMenu();
+    stopGame();
   }
 
   function handleResetGame() {

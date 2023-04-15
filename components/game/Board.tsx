@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import Pointer from "./Pointer";
 import HoverLayer from "./HoverLayer";
 import BoardLayer from "./BoardLayers";
+import GameContext from "@/context/game-context";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -16,6 +17,7 @@ const StyledWrapper = styled.div`
 `;
 
 export default function Board() {
+  const { boardIsBlocked } = useContext(GameContext);
   const [hoverColumn, setHoverColumn] = useState<number>(0);
 
   function changeHoveredColumn(col: number) {
@@ -24,7 +26,7 @@ export default function Board() {
 
   return (
     <StyledWrapper>
-      <Pointer position={hoverColumn} />
+      {!boardIsBlocked && <Pointer position={hoverColumn} />}
       <BoardLayer />
       <HoverLayer changeHoveredColumn={changeHoveredColumn} />
     </StyledWrapper>

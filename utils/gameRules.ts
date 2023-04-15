@@ -16,6 +16,8 @@ const initialBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
+const initialTime: number = 10;
+
 function getMatch(arr: number[]) {
   const match = arr.every((el) => el === arr[0]);
   if (match) {
@@ -203,4 +205,4 @@ function getWinner(board: number[][]) {
 
 export default getWinner;
 
-export { initialBoard };
+export { initialBoard, initialTime };

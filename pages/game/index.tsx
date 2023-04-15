@@ -1,7 +1,8 @@
 import Game from "@/components/game/Game";
 import GameMenu from "@/components/game/GameMenu";
+import GameContext from "@/context/game-context";
 import { initialBoard } from "@/utils/gameRules";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 const slideIn = keyframes`
@@ -22,19 +23,31 @@ const StyledWrapper = styled.div`
   overflow: hidden;
 `;
 
-const BottomBanner = styled.div`
+const BottomBanner = styled.div<IWinner>`
   z-index: 0;
   position: absolute;
   bottom: 0;
   height: 200px;
   width: 100%;
   border-radius: 60px 60px 0px 0px;
-  background-color: ${({ theme }) => theme.colors.darkPurple};
+  background-color: ${({ winner, theme }) =>
+    winner === 1 ? theme.colors.red : theme.colors.darkPurple};
+  background-color: ${({ winner, theme }) =>
+    winner === 2 ? theme.colors.yellow : theme.colors.darkPurple};
   animation: ${slideIn} 0.3s ease-in-out;
 `;
 
+interface IWinner {
+  winner: number | undefined;
+}
+
 export default function GamePage() {
+  const { startGame, winner } = useContext(GameContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  useEffect(() => {
+    startGame();
+  }, []);
 
   function toggleMenu() {
     setMenuIsOpen((prevState) => !prevState);
@@ -43,7 +56,7 @@ export default function GamePage() {
   return (
     <StyledWrapper>
       <Game toggleMenu={toggleMenu} />
-      <BottomBanner></BottomBanner>
+      <BottomBanner winner={winner}></BottomBanner>
       {menuIsOpen && <GameMenu toggleMenu={toggleMenu} />}
     </StyledWrapper>
   );

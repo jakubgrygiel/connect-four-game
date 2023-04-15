@@ -17,37 +17,37 @@ interface IHoverLayerProps {
 }
 
 export default function HoverLayer({ changeHoveredColumn }: IHoverLayerProps) {
-  const { changeCounterPosition } = useContext(GameContext);
+  const { changeCounterPosition, boardIsBlocked } = useContext(GameContext);
 
   return (
     <StyledWrapper>
       <HoverElement
-        onMouseEnter={() => changeHoveredColumn(0)}
-        onClick={() => changeCounterPosition(0)}
+        onMouseEnter={() => !boardIsBlocked && changeHoveredColumn(0)}
+        onClick={() => !boardIsBlocked && changeCounterPosition(0)}
       />
       <HoverElement
-        onMouseEnter={() => changeHoveredColumn(1)}
-        onClick={() => changeCounterPosition(1)}
+        onMouseEnter={() => !boardIsBlocked && changeHoveredColumn(1)}
+        onClick={() => !boardIsBlocked && changeCounterPosition(1)}
       />
       <HoverElement
-        onMouseEnter={() => changeHoveredColumn(2)}
-        onClick={() => changeCounterPosition(2)}
+        onMouseEnter={() => !boardIsBlocked && changeHoveredColumn(2)}
+        onClick={() => !boardIsBlocked && changeCounterPosition(2)}
       />
       <HoverElement
-        onMouseEnter={() => changeHoveredColumn(3)}
-        onClick={() => changeCounterPosition(3)}
+        onMouseEnter={() => !boardIsBlocked && changeHoveredColumn(3)}
+        onClick={() => !boardIsBlocked && changeCounterPosition(3)}
       />
       <HoverElement
-        onMouseEnter={() => changeHoveredColumn(4)}
-        onClick={() => changeCounterPosition(4)}
+        onMouseEnter={() => !boardIsBlocked && changeHoveredColumn(4)}
+        onClick={() => !boardIsBlocked && changeCounterPosition(4)}
       />
       <HoverElement
-        onMouseEnter={() => changeHoveredColumn(5)}
-        onClick={() => changeCounterPosition(5)}
+        onMouseEnter={() => !boardIsBlocked && changeHoveredColumn(5)}
+        onClick={() => !boardIsBlocked && changeCounterPosition(5)}
       />
       <HoverElement
-        onMouseEnter={() => changeHoveredColumn(6)}
-        onClick={() => changeCounterPosition(6)}
+        onMouseEnter={() => !boardIsBlocked && changeHoveredColumn(6)}
+        onClick={() => !boardIsBlocked && changeCounterPosition(6)}
       />
     </StyledWrapper>
   );

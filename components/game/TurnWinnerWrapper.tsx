@@ -96,6 +96,7 @@ export default function TurnWinnerWrapper() {
   function handleClick() {
     playAgain();
   }
+
   return !boardIsBlocked ? (
     <Turn player={currentPlayer}>
       <TurnTitle>PLAYER {currentPlayer}’S TURN</TurnTitle>

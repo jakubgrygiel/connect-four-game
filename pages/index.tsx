@@ -22,7 +22,6 @@ export default function Home() {
   const { quitGame } = useContext(GameContext);
 
   useEffect(() => {
-    console.log("home is open");
     quitGame();
   }, []);
 

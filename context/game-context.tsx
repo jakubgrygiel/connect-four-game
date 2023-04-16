@@ -79,9 +79,14 @@ export function GameContextProvider({ children }: IGameContextProvider) {
   }, [counterColPosition]);
 
   useEffect(() => {
+    const isFull = checkIfBoardIsFull();
     const { winnerNum, winningCounters } = getWinner(board);
     if (winnerNum) {
       showWinner(winnerNum, winningCounters);
+      return;
+    }
+    if (isFull) {
+      resetBoard();
     }
   }, [board]);
 
@@ -100,6 +105,20 @@ export function GameContextProvider({ children }: IGameContextProvider) {
       return () => clearInterval(interval);
     }
   }, [gameIsOn, seconds]);
+
+  function checkIfBoardIsFull() {
+    let newBoard = JSON.parse(JSON.stringify(board));
+    let isFull = true;
+    loop1: for (let i = 3; i < newBoard.length - 3; i++) {
+      for (let j = 3; j < newBoard[i].length - 3; j++) {
+        if (newBoard[i][j] === 0) {
+          isFull = false;
+          break loop1;
+        }
+      }
+    }
+    return isFull;
+  }
 
   function changeCounterPosition(col: number) {
     setCounterColPosition(col);

@@ -16,7 +16,7 @@ const initialBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-const initialTime: number = 10;
+const initialTime: number = 30;
 
 function getMatch(arr: number[]) {
   const match = arr.every((el) => el === arr[0]);
@@ -187,12 +187,13 @@ function checkForMatch(
 }
 
 function getWinner(board: number[][]) {
+  let newBoard = JSON.parse(JSON.stringify(board));
   let winningNum = 4;
   let winningCounters: number[][] = [];
   let winnerNum: number = 0;
-  loop1: for (let i = 3; i < board.length - 3; i++) {
-    for (let j = 3; j < board[i].length - 3; j++) {
-      const checking = checkForMatch(winningNum, board, i, j);
+  loop1: for (let i = 3; i < newBoard.length - 3; i++) {
+    for (let j = 3; j < newBoard[i].length - 3; j++) {
+      const checking = checkForMatch(winningNum, newBoard, i, j);
       if (checking.match) {
         winningCounters = checking.winningCounters;
         winnerNum = checking.winner;

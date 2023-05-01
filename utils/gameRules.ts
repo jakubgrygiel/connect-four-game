@@ -206,4 +206,4 @@ function getWinner(board: number[][]) {
 
 export default getWinner;
 
-export { initialBoard, initialTime };
+export { initialBoard, initialTime, getMatch };

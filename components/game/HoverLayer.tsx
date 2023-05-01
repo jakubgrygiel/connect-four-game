@@ -1,5 +1,9 @@
 import GameContext from "@/context/game-context";
-import { useContext } from "react";
+import {
+  choosePlacingLocation,
+  getPriorityForEachLocation,
+} from "@/utils/cpuLogic";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`

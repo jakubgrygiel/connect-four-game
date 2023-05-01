@@ -1,4 +1,6 @@
+import GameContext from "@/context/game-context";
 import Link from "next/link";
+import { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 
 const showIn = keyframes`
@@ -80,15 +82,35 @@ const StartGameBtn = styled(Button)`
   }
 `;
 
+const StartGameCpuBtn = styled(StartGameBtn)`
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.red};
+`;
+
 const RulesBtn = styled(Button)``;
 
 export default function HomeMenu() {
+  const { playWithCpu, playWithPlayer } = useContext(GameContext);
+
+  function handleClickCpu() {
+    playWithCpu();
+  }
+
+  function handleClickPlayer() {
+    playWithPlayer();
+  }
   return (
     <StyledWrapper>
       <img src="/assets/images/logo.svg" alt="game logo" />
       <BtnsWrapper>
         <Link href="/game">
-          <StartGameBtn>
+          <StartGameCpuBtn onClick={handleClickCpu}>
+            PLAY VS CPU{" "}
+            <img src="/assets/images/player-vs-cpu.svg" alt="game logo" />
+          </StartGameCpuBtn>
+        </Link>
+        <Link href="/game">
+          <StartGameBtn onClick={handleClickPlayer}>
             PLAY VS PLAYER{" "}
             <img src="/assets/images/player-vs-player.svg" alt="game logo" />
           </StartGameBtn>

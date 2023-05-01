@@ -1,7 +1,12 @@
+import {
+  choosePlacingLocation,
+  getPriorityForEachLocation,
+} from "@/utils/cpuLogic";
 import getWinner, { initialBoard, initialTime } from "@/utils/gameRules";
 import { createContext, useEffect, useState } from "react";
 
 interface IContext {
+  cpu: boolean;
   gameIsOn: boolean;
   boardIsBlocked: boolean;
   seconds: number;
@@ -18,6 +23,8 @@ interface IContext {
   playAgain: () => void;
   resetGame: () => void;
   quitGame: () => void;
+  playWithPlayer: () => void;
+  playWithCpu: () => void;
 }
 
 interface IGameContextProvider {
@@ -25,6 +32,7 @@ interface IGameContextProvider {
 }
 
 const GameContext = createContext<IContext>({
+  cpu: false,
   gameIsOn: true,
   boardIsBlocked: false,
   seconds: 0,
@@ -41,9 +49,12 @@ const GameContext = createContext<IContext>({
   playAgain: () => {},
   resetGame: () => {},
   quitGame: () => {},
+  playWithPlayer: () => {},
+  playWithCpu: () => {},
 });
 
 export function GameContextProvider({ children }: IGameContextProvider) {
+  const [cpu, setCpu] = useState(false);
   const [boardIsBlocked, setBoardIsBlocked] = useState(false);
   const [gameIsOn, setGameIsOn] = useState(false);
   const [seconds, setSeconds] = useState(initialTime);
@@ -91,7 +102,7 @@ export function GameContextProvider({ children }: IGameContextProvider) {
   }, [board]);
 
   useEffect(() => {
-    if (boardIsBlocked) return;
+    if (boardIsBlocked && winner) return;
     if (gameIsOn && seconds < 0) {
       currentPlayer === 1 && showWinner(2, undefined);
       currentPlayer === 2 && showWinner(1, undefined);
@@ -105,6 +116,16 @@ export function GameContextProvider({ children }: IGameContextProvider) {
       return () => clearInterval(interval);
     }
   }, [gameIsOn, seconds]);
+
+  useEffect(() => {
+    if (currentPlayer === 2 && cpu) {
+      const priorities = getPriorityForEachLocation(board);
+      const counterPosition = choosePlacingLocation(priorities);
+      setTimeout(() => {
+        setCounterColPosition(counterPosition);
+      }, 1000);
+    }
+  }, [currentPlayer]);
 
   function checkIfBoardIsFull() {
     let newBoard = JSON.parse(JSON.stringify(board));
@@ -125,6 +146,10 @@ export function GameContextProvider({ children }: IGameContextProvider) {
   }
 
   function changeCurrentPlayer() {
+    cpu &&
+      (currentPlayer === 1
+        ? setBoardIsBlocked(true)
+        : setBoardIsBlocked(false));
     setSeconds(initialTime);
     setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1));
   }
@@ -207,7 +232,16 @@ export function GameContextProvider({ children }: IGameContextProvider) {
     setPoints({ player1: 0, player2: 0 });
   }
 
+  function playWithPlayer() {
+    setCpu(false);
+  }
+
+  function playWithCpu() {
+    setCpu(true);
+  }
+
   const context: IContext = {
+    cpu: cpu,
     gameIsOn: gameIsOn,
     boardIsBlocked: boardIsBlocked,
     seconds: seconds,
@@ -224,6 +258,8 @@ export function GameContextProvider({ children }: IGameContextProvider) {
     playAgain: playAgain,
     resetGame: resetGame,
     quitGame: quitGame,
+    playWithPlayer: playWithPlayer,
+    playWithCpu: playWithCpu,
   };
 
   return (

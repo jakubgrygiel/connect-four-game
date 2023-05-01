@@ -1,3 +1,5 @@
+import GameContext from "@/context/game-context";
+import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div<IPlayer>`
@@ -6,6 +8,8 @@ const StyledWrapper = styled.div<IPlayer>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
+  min-width: 150px;
   padding: 28px;
   padding-top: 46px;
   border: 3px solid #000000;
@@ -66,9 +70,11 @@ interface IPointsProps {
 }
 
 export default function Points({ player, points }: IPointsProps) {
+  const { cpu } = useContext(GameContext);
+
   return (
     <StyledWrapper player={player}>
-      <Title>PLAYER {player}</Title>
+      <Title>{player === 2 && cpu ? "CPU" : `PLAYER ${player}`}</Title>
       <Num>{points}</Num>
       {player === 1 ? (
         <Img
@@ -76,6 +82,8 @@ export default function Points({ player, points }: IPointsProps) {
           alt="player 1 icon"
           player={1}
         />
+      ) : cpu ? (
+        <Img src="assets/images/cpu.svg" alt="cpu player icon" player={2} />
       ) : (
         <Img
           src="assets/images/player-two.svg"

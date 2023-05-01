@@ -90,21 +90,27 @@ interface IPlayer {
 }
 
 export default function TurnWinnerWrapper() {
-  const { currentPlayer, seconds, winner, boardIsBlocked, playAgain } =
+  const { currentPlayer, seconds, winner, playAgain, cpu } =
     useContext(GameContext);
 
   function handleClick() {
     playAgain();
   }
 
-  return !boardIsBlocked ? (
+  return winner === undefined ? (
     <Turn player={currentPlayer}>
-      <TurnTitle>PLAYER {currentPlayer}’S TURN</TurnTitle>
+      <TurnTitle>
+        {currentPlayer === 2 && cpu
+          ? "CPU'S TURN"
+          : `PLAYER ${currentPlayer}’S TURN`}
+      </TurnTitle>
       <Time>{seconds}s</Time>
     </Turn>
   ) : (
     <Winner>
-      <WinnerPlayer>PLAYER {winner}</WinnerPlayer>
+      <WinnerPlayer>
+        {winner === 2 && cpu ? "CPU" : `PLAYER ${winner}`}
+      </WinnerPlayer>
       <WinTitle>WINS</WinTitle>
       <PlayAgainBtn onClick={handleClick}>PLAY AGAIN</PlayAgainBtn>
     </Winner>

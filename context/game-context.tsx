@@ -91,6 +91,7 @@ export function GameContextProvider({ children }: IGameContextProvider) {
 
   useEffect(() => {
     const isFull = checkIfBoardIsFull();
+    const isEmpty = checkIfBoardIsEmpty();
     const { winnerNum, winningCounters } = getWinner(board);
     if (winnerNum) {
       showWinner(winnerNum, winningCounters);
@@ -98,6 +99,12 @@ export function GameContextProvider({ children }: IGameContextProvider) {
     }
     if (isFull) {
       resetBoard();
+      changeCurrentPlayer();
+    }
+    if (isEmpty) {
+      return;
+    } else {
+      changeCurrentPlayer();
     }
   }, [board]);
 
@@ -118,12 +125,15 @@ export function GameContextProvider({ children }: IGameContextProvider) {
   }, [gameIsOn, seconds]);
 
   useEffect(() => {
-    if (currentPlayer === 2 && cpu) {
+    if (gameIsOn && currentPlayer === 2 && cpu) {
       const priorities = getPriorityForEachLocation(board);
       const counterPosition = choosePlacingLocation(priorities);
-      setTimeout(() => {
+      const timer1 = setTimeout(() => {
         setCounterColPosition(counterPosition);
       }, 1000);
+      return () => {
+        clearTimeout(timer1);
+      };
     }
   }, [currentPlayer]);
 
@@ -139,6 +149,20 @@ export function GameContextProvider({ children }: IGameContextProvider) {
       }
     }
     return isFull;
+  }
+
+  function checkIfBoardIsEmpty() {
+    let newBoard = JSON.parse(JSON.stringify(board));
+    let isEmpty = true;
+    loop1: for (let i = 3; i < newBoard.length - 3; i++) {
+      for (let j = 3; j < newBoard[i].length - 3; j++) {
+        if (newBoard[i][j] !== 0) {
+          isEmpty = false;
+          break loop1;
+        }
+      }
+    }
+    return isEmpty;
   }
 
   function changeCounterPosition(col: number) {
@@ -170,12 +194,12 @@ export function GameContextProvider({ children }: IGameContextProvider) {
     if (indexToPutCounter !== undefined && indexToPutCounter >= 3) {
       newBoard[indexToPutCounter][newCounterPosition] = currentPlayer;
       setBoard(newBoard);
-      changeCurrentPlayer();
+      // changeCurrentPlayer();
     }
     if (!indexToPutCounter) {
       newBoard[newBoard.length - 4][newCounterPosition] = currentPlayer;
       setBoard(newBoard);
-      changeCurrentPlayer();
+      // changeCurrentPlayer();
     }
   }
 

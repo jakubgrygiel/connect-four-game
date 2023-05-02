@@ -9,26 +9,6 @@
 // virtual board
 // game board i = 3 to 8, j = 3 to 9
 
-const testBoard1 = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 1, 1, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
-
-const result = getPossibleCounterLocations(testBoard1);
-const priorities = getPriorityForEachLocation(testBoard1);
-console.log(result);
-console.log(priorities);
-
 function getPossibleCounterLocations(board: number[][]): number[][] {
   let newBoard = JSON.parse(JSON.stringify(board));
   let locations: number[][] = [];
@@ -47,7 +27,7 @@ function getPossibleCounterLocations(board: number[][]): number[][] {
     }
   }
   return locations;
-} // array of [[x,y], ...]
+}
 
 function getPriorityForEachLocation(board: number[][]) {
   const locations = getPossibleCounterLocations(board);
@@ -103,7 +83,7 @@ function getPriority(counterArr: number[]): number {
     }
   }
   return 0;
-} // number
+}
 
 function getPriorityBetween(arr: number[]) {
   if (
@@ -253,6 +233,7 @@ function getTopLeftArr(board: number[][], position: number[]) {
 export {
   getPossibleCounterLocations,
   getPriority,
+  getPriorityBetween,
   choosePlacingLocation,
   getPriorityForEachLocation,
 };

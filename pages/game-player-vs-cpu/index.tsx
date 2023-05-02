@@ -45,10 +45,11 @@ interface IWinner {
 }
 
 export default function GamePage() {
-  const { startGame, winner } = useContext(GameContext);
+  const { startGame, winner, playWithCpu } = useContext(GameContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   useEffect(() => {
+    playWithCpu();
     startGame();
   }, []);
 

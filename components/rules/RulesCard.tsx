@@ -33,6 +33,9 @@ const CheckIcon = styled.div`
   position: absolute;
   bottom: -40px;
 
+  a {
+  }
+
   svg {
     g {
       g {

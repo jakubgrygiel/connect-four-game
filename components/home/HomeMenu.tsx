@@ -42,6 +42,7 @@ const BtnsWrapper = styled.div`
     align-items: center;
     width: 100%;
     text-decoration: none;
+    border-radius: 20px;
   }
 `;
 
@@ -93,19 +94,19 @@ export default function HomeMenu() {
       <img src="/assets/images/logo.svg" alt="game logo" />
       <BtnsWrapper>
         <Link href="/game-player-vs-cpu">
-          <StartGameCpuBtn>
+          <StartGameCpuBtn tabIndex={-1}>
             PLAY VS CPU{" "}
             <img src="/assets/images/player-vs-cpu.svg" alt="game logo" />
           </StartGameCpuBtn>
         </Link>
         <Link href="/game-player-vs-player">
-          <StartGameBtn>
+          <StartGameBtn tabIndex={-1}>
             PLAY VS PLAYER{" "}
             <img src="/assets/images/player-vs-player.svg" alt="game logo" />
           </StartGameBtn>
         </Link>
         <Link href="/rules">
-          <RulesBtn>GAME RULES</RulesBtn>
+          <RulesBtn tabIndex={-1}>GAME RULES</RulesBtn>
         </Link>
       </BtnsWrapper>
     </StyledWrapper>
